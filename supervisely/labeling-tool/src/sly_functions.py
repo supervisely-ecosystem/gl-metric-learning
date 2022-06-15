@@ -49,7 +49,7 @@ def generate_data_for_nn_app(images_ids, figures_ids, annotations, padding):
                 f"Please clear cache on settings tab")
 
         image_info = g.spawn_api.image.get_info_by_id(image_id)
-        image_url = image_info.path_original
+        image_url = image_info.full_storage_url
         bbox = sly_annotation_to_bbox(label)
 
         data_for_inference.append(
