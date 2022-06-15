@@ -7,7 +7,7 @@ import tempfile
 import uuid
 
 import numpy as np
-import supervisely_lib as sly
+import supervisely as sly
 from functools import partial
 
 import sly_globals as g

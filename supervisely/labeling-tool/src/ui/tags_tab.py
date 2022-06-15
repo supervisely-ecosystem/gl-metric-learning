@@ -1,7 +1,7 @@
 import ast
 import json
 
-import supervisely_lib as sly
+import supervisely as sly
 import tag_utils
 
 import sly_globals as g
@@ -108,7 +108,7 @@ def add_to_reference(api: sly.Api, task_id, context, state, app_logger):
         embedding = g.figures2embeddings[figure_id]
 
         image_info = g.spawn_api.image.get_info_by_id(image_id)
-        image_url = image_info.full_storage_url
+        image_url = image_info.path_original
 
         annotations_for_image = f.get_annotation(project_id, image_id)
         label_annotation = annotations_for_image.get_label_by_id(figure_id)

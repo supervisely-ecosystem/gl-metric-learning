@@ -1,4 +1,4 @@
-import supervisely_lib as sly
+import supervisely as sly
 
 import json
 
@@ -17,7 +17,7 @@ def calculate_embeddings_for_project(api: sly.Api, task_id, context, state, app_
         images_info = api.image.get_list(current_dataset.id)
 
         images_ids = f.split_list_to_batches([current_image_info.id for current_image_info in images_info])
-        images_urls = f.split_list_to_batches([current_image_info.full_storage_url
+        images_urls = f.split_list_to_batches([current_image_info.path_original
                                                for current_image_info in images_info])
 
         for ids_batch, urls_batch in zip(images_ids, images_urls):

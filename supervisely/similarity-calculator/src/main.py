@@ -2,7 +2,7 @@ import functools
 import itertools
 import os
 
-import supervisely_lib as sly
+import supervisely as sly
 
 import json
 import numpy as np
