@@ -45,21 +45,24 @@ print(6)
 # pretrained_models_table = list(json.loads(str(os.environ['modal.state.models'])))  # debug
 
 if selected_weights_type == "pretrained":
+    print(7)
     selected_model = os.environ["modal.state.selectedModel"]
     model_info = None
     for row in pretrained_models_table:
         logger.info(row)
+        print(8)
         if row["Model"] == selected_model:
             model_info = row
             break
     remote_weights_path = model_info["weightsUrl"]
 else:
     remote_weights_path = os.environ["modal.state.weightsPath"]
-
+print(9)
 local_dataset_path = os.path.join(my_app.data_dir, "sly_dataset")
 local_weights_path = None
 
 batch_size = int(os.environ["modal.state.batchSize"])
+print(10)
 
 entry_point_path = Path(sys.argv[0])
 root_source_dir = str(entry_point_path.parents[3])
