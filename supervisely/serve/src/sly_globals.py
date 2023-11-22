@@ -47,30 +47,32 @@ print(6)
 if selected_weights_type == "pretrained":
     print(7)
     selected_model = os.environ["modal.state.selectedModel"]
+    print(8)
     model_info = None
     for row in pretrained_models_table:
+        print(9)
         logger.info(row)
-        print(8)
+        print(10)
         if row["Model"] == selected_model:
             model_info = row
             break
     remote_weights_path = model_info["weightsUrl"]
 else:
     remote_weights_path = os.environ["modal.state.weightsPath"]
-print(9)
+print(11)
 local_dataset_path = os.path.join(my_app.data_dir, "sly_dataset")
 local_weights_path = None
 
 batch_size = int(os.environ["modal.state.batchSize"])
-print(10)
+print(12)
 
 entry_point_path = Path(sys.argv[0])
 root_source_dir = str(entry_point_path.parents[3])
 
 print(root_source_dir)
-print(7)
+print(13)
 sys.path.append(os.path.join(root_source_dir, "src"))
-print(8)
+print(14)
 
 # DEBUG
 # sly.fs.clean_dir(my_app.data_dir, ignore_errors=True)
