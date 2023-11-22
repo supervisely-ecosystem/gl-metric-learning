@@ -67,12 +67,13 @@ batch_size = int(os.environ["modal.state.batchSize"])
 print(12)
 
 entry_point_path = Path(sys.argv[0])
+print(13)
 root_source_dir = str(entry_point_path.parents[3])
 
 print(root_source_dir)
-print(13)
-sys.path.append(os.path.join(root_source_dir, "src"))
 print(14)
+sys.path.append(os.path.join(root_source_dir, "src"))
+print(15)
 
 # DEBUG
 # sly.fs.clean_dir(my_app.data_dir, ignore_errors=True)
