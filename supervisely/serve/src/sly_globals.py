@@ -31,7 +31,7 @@ workspace_id = int(os.environ["context.workspaceId"])
 model = None
 
 task_id = my_app.task_id
-
+print(5)
 device = (
     os.environ["modal.state.device"]
     if "cuda" in os.environ["modal.state.device"] and torch.cuda.is_available()
@@ -40,6 +40,7 @@ device = (
 
 selected_weights_type = str(os.environ["modal.state.modelWeightsOptions"])
 pretrained_models_table = ast.literal_eval(os.environ["modal.state.models"])
+print(6)
 
 # pretrained_models_table = list(json.loads(str(os.environ['modal.state.models'])))  # debug
 
@@ -64,8 +65,9 @@ entry_point_path = Path(sys.argv[0])
 root_source_dir = str(entry_point_path.parents[3])
 
 print(root_source_dir)
-
+print(7)
 sys.path.append(os.path.join(root_source_dir, "src"))
+print(8)
 
 # DEBUG
 # sly.fs.clean_dir(my_app.data_dir, ignore_errors=True)
