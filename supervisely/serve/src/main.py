@@ -1,3 +1,4 @@
+print("main")
 print(1)
 import functools
 
