@@ -5,13 +5,16 @@ import torch
 import os
 from collections import OrderedDict
 from sly_visualization_progress import init_progress
-from model_functions import initialize_network, load_weights, calculate_embeddings_for_nps_batch
+from model_functions import (
+    initialize_network,
+    load_weights,
+    calculate_embeddings_for_nps_batch,
+)
 from supervisely.calculator import main
 from pathlib import Path
 import pickle
 
 from urllib.parse import urlparse
-
 
 
 local_weights_path = None
@@ -21,7 +24,7 @@ def init(data, state):
     state["collapsed4"] = True
     state["disabled4"] = True
     state["modelLoading"] = False
-    state['inferProject'] = False
+    state["inferProject"] = False
     init_progress(4, data)
 
     state["weightsPath"] = ""
@@ -43,15 +46,20 @@ def cos_similarity_matrix(a, b, eps=1e-8):
 def get_resized_image(image_storage_url, height):
     parsed_link = urlparse(image_storage_url)
 
-    return f'{parsed_link.scheme}://{parsed_link.netloc}' \
-           f'/previews/q/ext:jpeg/resize:fill:0:{height}:0/q:0/plain{parsed_link.path}'
+    return (
+        f"{parsed_link.scheme}://{parsed_link.netloc}"
+        f"/previews/q/ext:jpeg/resize:fill:0:{height}:0/q:0/plain{parsed_link.path}"
+    )
 
 
-def get_topk_cossim(test_emb, tr_emb, batchsize = 64, k=10, device='cuda:0',verbose=True):
+def get_topk_cossim(
+    test_emb, tr_emb, batchsize=64, k=10, device="cuda:0", verbose=True
+):
     tr_emb = torch.tensor(tr_emb, dtype=torch.float32, device=torch.device(device))
     test_emb = torch.tensor(test_emb, dtype=torch.float32, device=torch.device(device))
     vals = []
     inds = []
+    print("infer project")
     for test_batch in test_emb.split(batchsize):
         sim_mat = cos_similarity_matrix(test_batch, tr_emb)
         vals_batch, inds_batch = torch.topk(sim_mat, k=k, dim=1)
@@ -64,7 +72,7 @@ def get_topk_cossim(test_emb, tr_emb, batchsize = 64, k=10, device='cuda:0',verb
 
 def infer_project_(state, context):
     initialize_network()
-    local_path = os.path.join(g.checkpoints_dir, state['selectedCheckpoint'])
+    local_path = os.path.join(g.checkpoints_dir, state["selectedCheckpoint"])
     load_weights(local_path)
 
     workspace = g.api.workspace.get_info_by_id(g.workspace_id)
@@ -72,13 +80,17 @@ def infer_project_(state, context):
     datasets = g.api.dataset.get_list(g.project_id)
     datasets_list = []
 
-    remote_weights_path = state['weightsPath']
-    remote_embeddings_dir = state['weightsPath'].replace('checkpoints', 'embeddings')
+    remote_weights_path = state["weightsPath"]
+    remote_embeddings_dir = state["weightsPath"].replace("checkpoints", "embeddings")
 
     for dataset in datasets:
         embedding_path = os.path.join(
-            remote_embeddings_dir, sly.fs.get_file_name(remote_weights_path),
-            workspace.name, project.name, dataset.name + '.pkl')
+            remote_embeddings_dir,
+            sly.fs.get_file_name(remote_weights_path),
+            workspace.name,
+            project.name,
+            dataset.name + ".pkl",
+        )
         datasets_list.append([workspace, project, dataset, embedding_path])
 
     predicted_embedding_list = []
@@ -97,17 +109,19 @@ def infer_project_(state, context):
     precalculated_embedding_list = []
     precalculated_url_list = []
     precalculated_labels_list = []
-    for embedding_file in state['selectedEmbeddings']:
+    for embedding_file in state["selectedEmbeddings"]:
         if isinstance(embedding_file, list):
             for element in embedding_file:
                 local_path = os.path.join(g.embeddings_dir, Path(element).name)
                 try:
-                    with open(local_path, 'rb') as pkl_file:
+                    with open(local_path, "rb") as pkl_file:
                         file_content = pickle.load(pkl_file)
 
                     for k, v in file_content.items():
                         precalculated_embedding_data[k] = v
-                        precalculated_labels_list.extend([k for i in range(v.__len__())])
+                        precalculated_labels_list.extend(
+                            [k for i in range(v.__len__())]
+                        )
                         precalculated_url_list.extend(list(v.keys()))
                         precalculated_embedding_list.extend(list(v.values()))
                 except:
@@ -115,7 +129,7 @@ def infer_project_(state, context):
         else:
             local_path = os.path.join(g.embeddings_dir, Path(embedding_file).name)
             try:
-                with open(local_path, 'rb') as pkl_file:
+                with open(local_path, "rb") as pkl_file:
                     file_content = pickle.load(pkl_file)
 
                 for k, v in file_content.items():
@@ -126,9 +140,9 @@ def infer_project_(state, context):
             except:
                 pass
 
-    pred_dist, \
-    pred_index_of_labels = get_topk_cossim(
-        predicted_embedding_list, precalculated_embedding_list, k=10, device=g.device)
+    pred_dist, pred_index_of_labels = get_topk_cossim(
+        predicted_embedding_list, precalculated_embedding_list, k=10, device=g.device
+    )
 
     filtered_urls = []
     filtered_labels = []
@@ -147,7 +161,7 @@ def infer_project_(state, context):
     g.gallery_data = {
         "labels": filtered_labels,
         "urls": filtered_urls,
-        "confidences": pred_dist
+        "confidences": pred_dist,
     }
 
 
@@ -155,9 +169,7 @@ def infer_project_(state, context):
 @sly.timeit
 @g.my_app.ignore_errors_and_show_dialog_window()
 def infer_project(api: sly.Api, task_id, context, state, app_logger):
-    fields = [
-        {"field": "state.inferProject", "payload": True}
-    ]
+    fields = [{"field": "state.inferProject", "payload": True}]
     g.api.app.set_fields(g.task_id, fields)
     infer_project_(state, context)
     fields = [
@@ -166,6 +178,6 @@ def infer_project(api: sly.Api, task_id, context, state, app_logger):
         {"field": "state.inferProject", "payload": False},
         {"field": "state.collapsed5", "payload": False},
         {"field": "state.disabled5", "payload": False},
-        {"field": "state.activeStep", "payload": 5}
+        {"field": "state.activeStep", "payload": 5},
     ]
     g.api.app.set_fields(g.task_id, fields)

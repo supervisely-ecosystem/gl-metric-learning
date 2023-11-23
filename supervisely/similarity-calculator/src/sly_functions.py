@@ -20,10 +20,10 @@ import sly_progress
 
 
 def init_fields(state, data):
-    state['checkpointSelected'] = False
-    state['loadingEmbeddingsList'] = False
+    state["checkpointSelected"] = False
+    state["loadingEmbeddingsList"] = False
 
-    state['weightsPath'] = None
+    state["weightsPath"] = None
 
     state["modelWeightsOptions"] = "pretrained"
     state["selectedModel"] = "retail [medium]"
@@ -31,63 +31,55 @@ def init_fields(state, data):
     state["weightsPath"] = ""
     state["models"] = [
         {
-        "config": "",
-        "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/r2pk_and_10k.ckpt",
-        "Model": "retail [medium]",
-        "Classes": "12075"
-      },
-      {
-        "config": "",
-        "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/r2pk.ckpt",
-        "Model": "retail [small]",
-        "Classes": "2384"
-      },
-      {
-        "config": "",
-        "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/snacks_v1.ckpt",
-        "Model": "retail [nano]",
-        "Classes": "83"
-      },
-      {
-        "config": "",
-        "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/landmarks.ckpt",
-        "Model": "landmarks [medium]",
-        "Classes": "10752"
-      },
-      {
-        "config": "",
-        "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/pictures_v1.ckpt",
-        "Model": "pictures [nano]",
-        "Classes": "83"
-      }
-    ]
-    state["modelColumns"] = [
-        {
-            "key": "Model",
-            "title": "Model",
-            "subtitle": None
+            "config": "",
+            "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/r2pk_and_10k.ckpt",
+            "Model": "retail [medium]",
+            "Classes": "12075",
         },
         {
-            "key": "Classes",
-            "title": "Classes",
-            "subtitle": None
-        }
+            "config": "",
+            "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/r2pk.ckpt",
+            "Model": "retail [small]",
+            "Classes": "2384",
+        },
+        {
+            "config": "",
+            "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/snacks_v1.ckpt",
+            "Model": "retail [nano]",
+            "Classes": "83",
+        },
+        {
+            "config": "",
+            "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/landmarks.ckpt",
+            "Model": "landmarks [medium]",
+            "Classes": "10752",
+        },
+        {
+            "config": "",
+            "weightsUrl": "https://github.com/supervisely-ecosystem/gl-metric-learning/releases/download/v0.0.1/pictures_v1.ckpt",
+            "Model": "pictures [nano]",
+            "Classes": "83",
+        },
+    ]
+    state["modelColumns"] = [
+        {"key": "Model", "title": "Model", "subtitle": None},
+        {"key": "Classes", "title": "Classes", "subtitle": None},
     ]
 
-    data['embeddingsInfo'] = {}
+    data["embeddingsInfo"] = {}
 
-    state['selectAllEmbeddings'] = False
-    state['selectedEmbeddings'] = [f'{g.project_info.name}_{g.project_id}']  # HARDCODE
+    state["selectAllEmbeddings"] = False
+    state["selectedEmbeddings"] = [f"{g.project_info.name}_{g.project_id}"]  # HARDCODE
     # state['selectedEmbeddings'] = []
 
-    state['embeddingsLoaded'] = False
-    state['loadingEmbeddings'] = False
+    state["embeddingsLoaded"] = False
+    state["loadingEmbeddings"] = False
 
-    data['embeddingsStats'] = {}
+    data["embeddingsStats"] = {}
 
 
 def init_progress_bars(data, state):
-    progress_names = ['LoadingEmbeddings']
+    progress_names = ["LoadingEmbeddings"]
 
     for progress_name in progress_names:
         data[f"progress{progress_name}"] = None
@@ -101,12 +93,12 @@ def filter_paths_by_workspace_id(paths):
     filtered_paths = []
     for current_path in paths:
         try:
-            if int(current_path.split('/')[4].split('_')[-1]) == g.workspace_id:
+            print("sly functions")
+            if int(current_path.split("/")[4].split("_")[-1]) == g.workspace_id:
                 filtered_paths.append(current_path)
 
         except Exception as ex:
-            g.logger.warn(f'Cannot filter path: {current_path}\n'
-                          f'ex: {ex}')
+            g.logger.warn(f"Cannot filter path: {current_path}\n" f"ex: {ex}")
     return filtered_paths
 
 
@@ -114,7 +106,7 @@ def group_paths_by_project_ids(paths):
     paths_by_projects = {}
 
     for current_path in paths:
-        current_project_name = current_path.split('/')[5]
+        current_project_name = current_path.split("/")[5]
         added_paths = paths_by_projects.get(current_project_name, [])
         added_paths.append(current_path)
         paths_by_projects[current_project_name] = added_paths
@@ -125,13 +117,19 @@ def group_paths_by_project_ids(paths):
 def download_embeddings(embeddings_paths):
     local_pickle_paths = []
 
-    sly_progress_embeddings = sly_progress.SlyProgress(g.api, g.task_id, 'progressLoadingEmbeddings')
-    sly_progress_embeddings.refresh_params('Downloading embeddings', len(embeddings_paths))
+    sly_progress_embeddings = sly_progress.SlyProgress(
+        g.api, g.task_id, "progressLoadingEmbeddings"
+    )
+    sly_progress_embeddings.refresh_params(
+        "Downloading embeddings", len(embeddings_paths)
+    )
 
     for embedding_path in embeddings_paths:
         full_path = embedding_path
-        relative_path = '/GL-MetricLearning/embeddings/'
-        local_embedding_path = os.path.join(g.local_embeddings_dir, os.path.relpath(full_path, relative_path))
+        relative_path = "/GL-MetricLearning/embeddings/"
+        local_embedding_path = os.path.join(
+            g.local_embeddings_dir, os.path.relpath(full_path, relative_path)
+        )
 
         if os.path.exists(local_embedding_path):
             os.remove(local_embedding_path)
@@ -144,24 +142,24 @@ def download_embeddings(embeddings_paths):
 
 
 def load_embeddings_to_memory(pickles_files):
-    sly_progress_pickles = sly_progress.SlyProgress(g.api, g.task_id, 'progressLoadingEmbeddings')
-    sly_progress_pickles.refresh_params('Loading embeddings to memory', len(pickles_files))
+    sly_progress_pickles = sly_progress.SlyProgress(
+        g.api, g.task_id, "progressLoadingEmbeddings"
+    )
+    sly_progress_pickles.refresh_params(
+        "Loading embeddings to memory", len(pickles_files)
+    )
 
-    embeddings_data = {
-        'label': []
-    }
+    embeddings_data = {"label": []}
 
-    placeholders_data = {
-        'label': []
-    }
+    placeholders_data = {"label": []}
 
     for pickle_file_path in pickles_files:
-        with open(pickle_file_path, 'rb') as pickle_file:
+        with open(pickle_file_path, "rb") as pickle_file:
             current_data = pickle.load(pickle_file)
 
             for current_label, current_embeddings_data in current_data.items():
                 for current_embedding_data in current_embeddings_data:
-                    if current_embedding_data['embedding'] is None:
+                    if current_embedding_data["embedding"] is None:
                         current_storage = placeholders_data
                     else:
                         current_storage = embeddings_data
@@ -174,7 +172,7 @@ def load_embeddings_to_memory(pickles_files):
                     for key, value in current_embedding_data.items():
                         current_storage[key].append(value)
 
-                    current_storage['label'].append(current_label)
+                    current_storage["label"].append(current_label)
 
         sly_progress_pickles.next_step()
     sly_progress_pickles.reset_params()
@@ -189,7 +187,9 @@ def cos_similarity_matrix(a, b, eps=1e-8):
     return sim_mt
 
 
-def get_topn_cossim(test_emb, tr_emb, batchsize=64, n=10, device='cuda:0', verbose=True):
+def get_topn_cossim(
+    test_emb, tr_emb, batchsize=64, n=10, device="cuda:0", verbose=True
+):
     tr_emb = torch.tensor(tr_emb, dtype=torch.float32, device=torch.device(device))
     test_emb = torch.tensor(test_emb, dtype=torch.float32, device=torch.device(device))
     vals = []
@@ -208,22 +208,22 @@ def get_topn_cossim(test_emb, tr_emb, batchsize=64, n=10, device='cuda:0', verbo
 
 def add_indexes_to_database(embeddings_data_in_list):
     for index, row in enumerate(embeddings_data_in_list):
-        row.update({'index': index})
+        row.update({"index": index})
 
 
 def prepare_database(embeddings_in_memory):
-    labels_list = embeddings_in_memory['label']
+    labels_list = embeddings_in_memory["label"]
     items_database = {current_label: {} for current_label in labels_list}
 
-    for index, current_url in enumerate(embeddings_in_memory['url']):
+    for index, current_url in enumerate(embeddings_in_memory["url"]):
         current_label = labels_list[index]
-        urls_in_memory = items_database[current_label].get('url', [])
+        urls_in_memory = items_database[current_label].get("url", [])
         urls_in_memory.append(current_url)
-        items_database[current_label]['url'] = urls_in_memory
+        items_database[current_label]["url"] = urls_in_memory
 
-    for index, current_description in enumerate(embeddings_in_memory['description']):
+    for index, current_description in enumerate(embeddings_in_memory["description"]):
         current_label = labels_list[index]
-        description_in_memory = items_database[current_label].get('description', None)
+        description_in_memory = items_database[current_label].get("description", None)
         if description_in_memory is None:
             items_database[current_label].update(current_description)
 
@@ -244,8 +244,13 @@ def get_custom_dataset_id(project_id, items_count):
     if items_count > g.custom_dataset_images_max_count or len(datasets_list) == 0:
         return None
 
-    if datasets_list[-1].images_count and ('custom_data' in str(datasets_list[-1].name)):
-        if datasets_list[-1].images_count + items_count < g.custom_dataset_images_max_count:
+    if datasets_list[-1].images_count and (
+        "custom_data" in str(datasets_list[-1].name)
+    ):
+        if (
+            datasets_list[-1].images_count + items_count
+            < g.custom_dataset_images_max_count
+        ):
             return datasets_list[-1].id
 
     return None
@@ -253,19 +258,28 @@ def get_custom_dataset_id(project_id, items_count):
 
 def update_class_list(project_id):
     project_meta = g.api.project.get_meta(project_id)
-    if g.custom_label_title not in [class_info['title'] for class_info in project_meta['classes']]:
-        objects_classes = sly.ObjClassCollection([sly.ObjClass(g.custom_label_title, sly.Rectangle)])
+    if g.custom_label_title not in [
+        class_info["title"] for class_info in project_meta["classes"]
+    ]:
+        objects_classes = sly.ObjClassCollection(
+            [sly.ObjClass(g.custom_label_title, sly.Rectangle)]
+        )
         meta = sly.ProjectMeta(obj_classes=objects_classes)
         meta = meta.merge(sly.ProjectMeta.from_json(project_meta))
         g.api.project.update_meta(project_id, meta.to_json())
 
 
-def init_project_remotely(project_id=None, items_count=0, project_name='custom_reference_data'):
-
+def init_project_remotely(
+    project_id=None, items_count=0, project_name="custom_reference_data"
+):
     if not project_id:
         project_id = get_custom_project_id(project_name)
-        project = g.api.project.create(g.workspace_id, project_name, type=sly.ProjectType.IMAGES,
-                                       change_name_if_conflict=True)
+        project = g.api.project.create(
+            g.workspace_id,
+            project_name,
+            type=sly.ProjectType.IMAGES,
+            change_name_if_conflict=True,
+        )
     else:
         project = g.api.project.get_info_by_id(project_id)
 
@@ -273,9 +287,10 @@ def init_project_remotely(project_id=None, items_count=0, project_name='custom_r
     ds_id = get_custom_dataset_id(project.id, items_count)
 
     if not ds_id:
-        ds_name = 'custom_data'
-        dataset = g.api.dataset.create(project.id, f'{ds_name}',
-                                       change_name_if_conflict=True)
+        ds_name = "custom_data"
+        dataset = g.api.dataset.create(
+            project.id, f"{ds_name}", change_name_if_conflict=True
+        )
     else:
         dataset = None
         for dataset in g.api.dataset.get_list(project_id):
@@ -298,36 +313,41 @@ def url_to_image(url):
 
 def cache_images(data):
     """
-     FOR EACH url in data
-     download image to RAM by url
+    FOR EACH url in data
+    download image to RAM by url
     """
-    for row in tqdm(data, desc='⏬ downloading images'):
+    for row in tqdm(data, desc="⏬ downloading images"):
         try:
-            image_in_memory = url_to_image(row['url'])
-            row['cached_image'] = image_in_memory
+            image_in_memory = url_to_image(row["url"])
+            row["cached_image"] = image_in_memory
         except Exception as ex:
-            g.logger.warn(f'image not downloaded: {row["url"]}\n'
-                          f'reason: {ex}')
+            g.logger.warn(f'image not downloaded: {row["url"]}\n' f"reason: {ex}")
 
-            row['cached_image'] = None
+            row["cached_image"] = None
 
 
 def crop_images(data):
     """
-     FOR EACH image in data
-     crop image if bbox is not None
+    FOR EACH image in data
+    crop image if bbox is not None
     """
     for row in data:
-        if row['cached_image'] is not None and row['bbox']:
-            top, left, height, width = row['bbox'][0], row['bbox'][1], row['bbox'][2], row['bbox'][3]
-            crop = row['cached_image'][top:top + height, left:left + width]
+        if row["cached_image"] is not None and row["bbox"]:
+            top, left, height, width = (
+                row["bbox"][0],
+                row["bbox"][1],
+                row["bbox"][2],
+                row["bbox"][3],
+            )
+            crop = row["cached_image"][top : top + height, left : left + width]
 
             if crop.shape[0] > 0 and crop.shape[1] > 0:
-                row['cached_image'] = crop
+                row["cached_image"] = crop
             else:
-                g.logger.warn(f'image not cropped: {row["url"]}\n'
-                              f'reason: {crop.shape}')
-                row['cached_image'] = None
+                g.logger.warn(
+                    f'image not cropped: {row["url"]}\n' f"reason: {crop.shape}"
+                )
+                row["cached_image"] = None
 
 
 def get_data_to_upload(sly_dataset, data_to_process):
@@ -340,7 +360,7 @@ def get_data_to_upload(sly_dataset, data_to_process):
         start_image_number = 1
     for index, row in enumerate(data_to_process):
         img_names.append(f"{start_image_number + index:04d}_{time.time_ns()}.jpg")
-        images_nps.append(row['cached_image'])
+        images_nps.append(row["cached_image"])
 
     return img_names, images_nps
 
@@ -360,42 +380,58 @@ def generate_annotations(project_id, data_to_process, new_images_info):
 
     annotations = []
     for row, image_info in zip(data_to_process, new_images_info):
-        tag_meta = sly.TagMeta(row['label'], sly.TagValueType.NONE)
+        tag_meta = sly.TagMeta(row["label"], sly.TagValueType.NONE)
 
-        if row['label'] not in project_tags_names:
+        if row["label"] not in project_tags_names:
             project_meta = project_meta.add_tag_meta(tag_meta)
-            project_tags_names.append(row['label'])
+            project_tags_names.append(row["label"])
 
         tag_collection = sly.TagCollection([sly.Tag(tag_meta)])
 
-        label = sly.Label(sly.Rectangle(top=0, left=0, bottom=image_info.height - 1, right=image_info.width - 1),
-                          sly.ObjClass(g.custom_label_title, sly.Rectangle), tag_collection)
-        annotations.append(sly.Annotation((image_info.height, image_info.width), [label]))
+        label = sly.Label(
+            sly.Rectangle(
+                top=0, left=0, bottom=image_info.height - 1, right=image_info.width - 1
+            ),
+            sly.ObjClass(g.custom_label_title, sly.Rectangle),
+            tag_collection,
+        )
+        annotations.append(
+            sly.Annotation((image_info.height, image_info.width), [label])
+        )
 
     g.api.project.update_meta(project_id, project_meta.to_json())
     return annotations
 
 
 def add_images_to_project(data_to_process):
-    data_to_process = [dict(zip(data_to_process, t)) for t in zip(*data_to_process.values())]
+    data_to_process = [
+        dict(zip(data_to_process, t)) for t in zip(*data_to_process.values())
+    ]
 
-    sly_project, sly_dataset = init_project_remotely(project_id=g.project_id, items_count=len(data_to_process))
+    sly_project, sly_dataset = init_project_remotely(
+        project_id=g.project_id, items_count=len(data_to_process)
+    )
 
     cache_images(data_to_process)
     crop_images(data_to_process)
 
     images_names, images_nps = get_data_to_upload(sly_dataset, data_to_process)
 
-    new_image_infos = g.api.image.upload_nps(sly_dataset.id, images_names, images_nps, metas=None, progress_cb=None)
+    new_image_infos = g.api.image.upload_nps(
+        sly_dataset.id, images_names, images_nps, metas=None, progress_cb=None
+    )
 
     annotations = generate_annotations(sly_project.id, data_to_process, new_image_infos)
 
     g.api.annotation.upload_anns(
         img_ids=[current_image.id for current_image in new_image_infos],
-        anns=annotations
+        anns=annotations,
     )
 
     new_images_urls = [current_image.path_original for current_image in new_image_infos]
-    new_bboxes = [[0, 0, current_image.height - 1, current_image.width - 1] for current_image in new_image_infos]
+    new_bboxes = [
+        [0, 0, current_image.height - 1, current_image.width - 1]
+        for current_image in new_image_infos
+    ]
 
     return new_images_urls, new_bboxes
