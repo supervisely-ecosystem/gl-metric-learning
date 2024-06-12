@@ -14,3 +14,6 @@ RUN pip3 install scikit_learn==0.23.2
 RUN pip3 install python-dotenv==0.19.2
 RUN pip3 install torch==1.12.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
 RUN pip3 install torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113
+
+RUN pip3 install supervisely==6.73.104
+RUN pip3 install supervisely[apps]==6.73.104
