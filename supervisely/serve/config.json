@@ -10,7 +10,7 @@
   ],
   "description": "Google landmarks challenge models",
   "docker_image": "supervisely/gl-metric-learning:1.0.0",
-  "instance_version": "6.4.57",
+  "instance_version": "6.9.10",
   "main_script": "supervisely/serve/src/main.py",
   "modal_template": "supervisely/serve/src/modal.html",
   "modal_width": 700,
