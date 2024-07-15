@@ -8,8 +8,8 @@
     "nn tools"
   ],
   "description": "Calculate embeddings for images project",
-  "docker_image": "supervisely/base-py-sdk:6.35.0",
-  "instance_version": "6.4.57",
+  "docker_image": "supervisely/base-py-sdk:6.73.129",
+  "instance_version": "6.10.0",
   "main_script": "supervisely/calculator/src/main.py",
   "modal_template": "supervisely/calculator/src/modal.html",
   "modal_width": 700,
