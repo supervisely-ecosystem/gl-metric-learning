@@ -108,8 +108,8 @@ def generate_batch_for_inference(images_urls, data_for_each_image):
                 'index': current_index,
                 'url': image_url,
                 'bbox': None,
-                'tags': data_for_each_image['tags'][0],
-                'description': data_for_each_image['descriptions'][0]
+                'tags': [None],
+                'description': {}
             })
             current_index += 1
 
