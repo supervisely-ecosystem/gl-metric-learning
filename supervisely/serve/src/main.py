@@ -30,16 +30,19 @@ def warn_on_exception(func):
 def inference(api: sly.Api, task_id, context, state, app_logger):
     data_to_process = list(state['input_data'])
 
-    f.cache_images(data_to_process)
-    f.crop_images(data_to_process)
+    indexes = []
+    embeddings = []
+    for batch in sly.batched(data_to_process, batch_size=g.batch_size):
+        f.cache_images(batch)
+        f.crop_images(batch)
+        filtered_batch = [row for row in batch if row['cached_image'] is not None]
+        images_to_process = np.asarray([np.asarray(row['cached_image']) for row in filtered_batch])
+        indexes.extend([row['index'] for row in filtered_batch])
+        batch_embeddings = f.batch_inference(images_to_process)
+        embeddings.extend(batch_embeddings)
 
-    filtered_data = [row for row in data_to_process if row['cached_image'] is not None]
-    images_to_process = np.asarray([np.asarray(row['cached_image']) for row in filtered_data])
-
-    embeddings = f.batch_inference(images_to_process)
-
-    output_data = json.dumps(str([{'index': row['index'],
-                                   'embedding': list(embeddings[index])} for index, row in enumerate(filtered_data)]))
+    output_data = json.dumps(str([{'index': index,
+                                   'embedding': list(embedding)} for index, embedding in zip(indexes, embeddings)]))
 
     request_id = context["request_id"]
     g.my_app.send_response(request_id, data=output_data)
