@@ -40,7 +40,7 @@ def inference(api: sly.Api, task_id, context, state, app_logger):
     #     indexes.extend([row['index'] for row in filtered_batch])
     #     batch_embeddings = f.batch_inference(images_to_process)
     #     embeddings.extend(batch_embeddings)
-    embeddings = np.random.rand(len(data_to_process), 512, 64)
+    embeddings = np.random.rand(len(data_to_process), 512*64)
     indexes = [i for i in range(len(data_to_process))]
 
     output_data = json.dumps(str([{'index': index,
