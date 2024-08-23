@@ -4,7 +4,6 @@ import sys
 from pathlib import Path
 
 import supervisely as sly
-from supervisely.app.v1.app_service import AppService
 import dotenv
 import ast
 
@@ -15,15 +14,16 @@ dotenv.load_dotenv("supervisely/serve/secret_debug.env")
 
 logger = sly.logger
 
-my_app: AppService = AppService()
-api = my_app.public_api
+my_app = sly.Application()
+my_server = my_app.get_server()
+api = sly.Api()
 
 team_id = int(os.environ["context.teamId"])
 workspace_id = int(os.environ["context.workspaceId"])
 
 model = None
 
-task_id = my_app.task_id
+task_id = sly.env.task_id()
 
 device = (
     os.environ["modal.state.device"]

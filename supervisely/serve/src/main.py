@@ -24,10 +24,11 @@ def warn_on_exception(func):
     return wrapper
 
 
-@g.my_app.callback("inference")
+@g.my_server.post("inference")
 @warn_on_exception
 @sly.timeit
-def inference(api: sly.Api, task_id, context, state, app_logger):
+def inference(request):
+    state = request.state
     data_to_process = list(state['input_data'])
 
     indexes = []
@@ -44,14 +45,13 @@ def inference(api: sly.Api, task_id, context, state, app_logger):
     output_data = json.dumps(str([{'index': index,
                                    'embedding': list(embedding)} for index, embedding in zip(indexes, embeddings)]))
 
-    request_id = context["request_id"]
-    g.my_app.send_response(request_id, data=output_data)
+    return output_data
 
 
-@g.my_app.callback("get_info")
+@g.my_server.post("get_info")
 @warn_on_exception
 @sly.timeit
-def get_info(api: sly.Api, task_id, context, state, app_logger):
+def get_info():
     if g.selected_weights_type == 'pretrained':
         output_data = {'weightsType': g.selected_weights_type}
         output_data.update(g.model_info)
@@ -64,8 +64,7 @@ def get_info(api: sly.Api, task_id, context, state, app_logger):
 
     output_data = json.dumps(str(output_data))
 
-    request_id = context["request_id"]
-    g.my_app.send_response(request_id, data=output_data)
+    return output_data
 
 
 def main():
@@ -86,8 +85,6 @@ def main():
         "device": g.device
     })
 
-    g.my_app.run()
 
-
-if __name__ == "__main__":
-    sly.main_wrapper("main", main)
+main()
+app = g.my_app
