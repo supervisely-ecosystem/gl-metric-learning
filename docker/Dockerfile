@@ -1,4 +1,5 @@
-FROM supervisely/base-py-sdk:6.35.0
+FROM supervisely/base-py-sdk:6.73.166
+
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 
