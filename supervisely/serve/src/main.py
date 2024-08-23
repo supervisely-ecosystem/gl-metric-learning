@@ -1,4 +1,5 @@
 import functools
+import os
 
 import supervisely as sly
 
@@ -47,8 +48,18 @@ def inference(api: sly.Api, task_id, context, state, app_logger):
                                    'embedding': list(embedding)} for index, embedding in zip(indexes, embeddings)]))
 
     sly.logger.info(f"embeddings shape: {embeddings.shape}", extra={"shape": embeddings.shape, "data_len": len(data_to_process)})
-
+    
     request_id = context["request_id"]
+    save_to_team_files = state.get("save_to_team_files", False)
+    if save_to_team_files:
+        tmp_path = f'/tmp/output_data.json'
+        remote_path = f"{g.remote_embeddings_dir}tmp_output_data.json"
+        with open(tmp_path, 'w') as file:
+            file.write(output_data)
+        api.file.upload(g.team_id, tmp_path, remote_path)
+        os.remove(tmp_path)
+        output_data = {"team_files_path": remote_path}
+
     g.my_app.send_response(request_id, data=output_data)
 
 

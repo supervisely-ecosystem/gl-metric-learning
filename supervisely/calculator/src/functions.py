@@ -164,11 +164,18 @@ def process_placeholder_images(batch):
     return placeholder_data, images_to_inference
 
 
-def inference_batch(batch):
+def inference_batch(batch, save_to_team_files = False):
     embeddings_by_indexes, inference_items = process_placeholder_images(batch)
     logging.info('big req sent')
-    response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items}, timeout=99999)
-    embeddings_by_indexes.extend(ast.literal_eval(json.loads(response)))
+    response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items, "save_to_team_files":save_to_team_files}, timeout=99999)
+    if save_to_team_files:
+        team_files_path = response['team_files_path']
+        g.api.file.download(g.team_id, team_files_path, f'{g.my_app.data_dir}/output_data.json')
+        with open(f'{g.my_app.data_dir}/output_data.json', 'r') as file:
+            embeddings_by_indexes.extend(ast.literal_eval(json.load(file)))
+    else:
+        response = json.loads(response)
+        embeddings_by_indexes.extend(ast.literal_eval(response))
 
     return embeddings_by_indexes
 

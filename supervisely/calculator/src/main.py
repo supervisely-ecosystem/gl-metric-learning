@@ -27,7 +27,7 @@ def calculate_embeddings_for_project(api: sly.Api, task_id, context, state, app_
             data_for_each_image = f.get_data_for_each_image(ann_objects)
             batch_for_inference = f.generate_batch_for_inference(images_urls, data_for_each_image)
             sly.logger.debug(f"Infering batch of {i} - {i+len(images_ids)} images...")
-            embeddings_by_indexes = f.inference_batch(batch_for_inference)
+            embeddings_by_indexes = f.inference_batch(batch_for_inference, save_to_team_files = True)
 
             sly.logger.debug("Inference done. Packing data...")
             f.pack_data(packed_data, batch_for_inference, embeddings_by_indexes)

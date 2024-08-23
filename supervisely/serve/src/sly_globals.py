@@ -36,6 +36,7 @@ pretrained_models_table = ast.literal_eval(os.environ["modal.state.models"])
 
 # pretrained_models_table = list(json.loads(str(os.environ['modal.state.models'])))  # debug
 
+model_info = None
 if selected_weights_type == "pretrained":
     selected_model = os.environ["modal.state.selectedModel"]
     model_info = None
@@ -62,3 +63,5 @@ sys.path.append(os.path.join(root_source_dir, "src"))
 
 # DEBUG
 # sly.fs.clean_dir(my_app.data_dir, ignore_errors=True)
+
+remote_embeddings_dir = "/GL-MetricLearning/embeddings/"
