@@ -33,17 +33,15 @@ def inference(api: sly.Api, task_id, context, state, app_logger):
 
     indexes = []
     embeddings = []
-    # for batch in sly.batched(data_to_process, batch_size=g.batch_size):
-    #     f.cache_images(batch)
-    #     f.crop_images(batch)
-    #     filtered_batch = [row for row in batch if row['cached_image'] is not None]
-    #     images_to_process = np.asarray([np.asarray(row['cached_image']) for row in filtered_batch])
-    #     indexes.extend([row['index'] for row in filtered_batch])
-    #     batch_embeddings = f.batch_inference(images_to_process)
-    #     embeddings.extend(batch_embeddings)
-    embeddings = np.random.rand(len(data_to_process), 512*64)
-    indexes = [i for i in range(len(data_to_process))]
-
+    for batch in sly.batched(data_to_process, batch_size=g.batch_size):
+        f.cache_images(batch)
+        f.crop_images(batch)
+        filtered_batch = [row for row in batch if row['cached_image'] is not None]
+        images_to_process = np.asarray([np.asarray(row['cached_image']) for row in filtered_batch])
+        indexes.extend([row['index'] for row in filtered_batch])
+        batch_embeddings = f.batch_inference(images_to_process)
+        embeddings.extend(batch_embeddings)
+    
     output_data = json.dumps(str([{'index': index,
                                    'embedding': list(embedding)} for index, embedding in zip(indexes, embeddings)]))
 
