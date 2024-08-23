@@ -46,7 +46,7 @@ def inference(api: sly.Api, task_id, context, state, app_logger):
     output_data = json.dumps(str([{'index': index,
                                    'embedding': list(embedding)} for index, embedding in zip(indexes, embeddings)]))
 
-    sly.logger.info(f"embeddings shape: {embeddings.shape}", extra={"shape": embeddings.shape})
+    sly.logger.info(f"embeddings shape: {embeddings.shape}", extra={"shape": embeddings.shape, "data_len": len(data_to_process)})
 
     request_id = context["request_id"]
     g.my_app.send_response(request_id, data=output_data)
