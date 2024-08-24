@@ -22,6 +22,8 @@ api = sly.Api()
 team_id = int(os.environ["context.teamId"])
 workspace_id = int(os.environ["context.workspaceId"])
 app_data_dir = "/app/data"
+if not os.path.exists(app_data_dir):
+    os.makedirs(app_data_dir)
 
 model = None
 
