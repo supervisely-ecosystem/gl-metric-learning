@@ -170,7 +170,7 @@ def inference_batch(batch):
     logging.info('big req sent')
     if g.model_info.get("support_async_inference", False):
         response = g.api.task.send_request(g.session_id, "inference_async", data={'input_data': inference_items}, timeout=5)
-        inference_uuid = response.get["inference_request_uuid"]
+        inference_uuid = response["inference_request_uuid"]
         for _ in range(720): # 1 hour
             response = g.api.task.send_request(g.session_id, "get_inference_status", data={'inference_request_uuid': inference_uuid}, timeout=5)
             if response.get("status") == "done":
