@@ -1,5 +1,6 @@
 import functools
 
+from fastapi import Request
 import supervisely as sly
 
 import json
@@ -27,9 +28,9 @@ def warn_on_exception(func):
 @g.my_server.post("/inference")
 @warn_on_exception
 @sly.timeit
-def inference(request):
+def inference(request: Request):
     sly.logger.debug("Inference request", extra={'request': request})
-    state = request.state
+    state = request.state.state
     data_to_process = list(state['input_data'])
 
     indexes = []
