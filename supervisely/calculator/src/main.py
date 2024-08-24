@@ -35,7 +35,7 @@ def calculate_embeddings_for_project(api: sly.Api):
             i += len(images_ids)
 
         sly.logger.debug("Saving packed data for dataset: %s", current_dataset.name)
-        f.write_packed_data_persistent(current_dataset.id, packed_data)
+        f.write_packed_data(current_dataset.id, packed_data)
 
     g.my_app.stop()
 
