@@ -28,6 +28,7 @@ def warn_on_exception(func):
 @warn_on_exception
 @sly.timeit
 def inference(request):
+    sly.logger.debug("Inference request", extra={'request': request})
     state = request.state
     data_to_process = list(state['input_data'])
 
