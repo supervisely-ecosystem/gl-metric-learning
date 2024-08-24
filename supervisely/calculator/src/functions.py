@@ -53,7 +53,6 @@ def check_model_connection():
     try:
         sly.logger.debug("Connecting to the model", extra={"session_id": g.session_id})
         response = g.api.task.send_request(g.session_id, "get_info", data={}, timeout=5)
-        response = json.loads(response)
         g.model_info = ast.literal_eval(response)
         sly.logger.info("🟩 Model has been successfully connected")
         sly.logger.info(f"⚙️ Model info:\n"
