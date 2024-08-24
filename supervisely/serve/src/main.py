@@ -122,12 +122,12 @@ def get_info():
 
     return output_data
 
-g.my_server.post("/get_session_info")
+@g.my_server.post("/get_session_info")
 def get_session_info():
     return get_info()
 
 
-g.my_server.post("/is_deployed")
+@g.my_server.post("/is_deployed")
 def is_deployed():
     return {
         "deployed": True,
