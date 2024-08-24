@@ -22,13 +22,13 @@ def download_file_by_url(url, local_path):
 
 def download_model_and_config():
     if g.selected_weights_type == 'pretrained':
-        g.local_weights_path = os.path.join(g.my_app.data_dir, f'{g.selected_model}.pth')
+        g.local_weights_path = os.path.join(g.app_data_dir, f'{g.selected_model}.pth')
         if not os.path.exists(g.local_weights_path):
             download_file_by_url(g.remote_weights_path, g.local_weights_path)
 
     else:
         remote_model_weights_name = g.remote_weights_path.split('/')[-1]
-        g.local_weights_path = os.path.join(g.my_app.data_dir, remote_model_weights_name)
+        g.local_weights_path = os.path.join(g.app_data_dir, remote_model_weights_name)
         g.api.file.download(g.team_id, g.remote_weights_path, g.local_weights_path)
 
 

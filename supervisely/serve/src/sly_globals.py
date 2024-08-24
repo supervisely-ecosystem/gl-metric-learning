@@ -4,7 +4,6 @@ import sys
 from pathlib import Path
 
 import supervisely as sly
-from supervisely.app.v1.app_service import AppService
 import dotenv
 import ast
 
@@ -12,18 +11,23 @@ import torch.cuda
 
 dotenv.load_dotenv("supervisely/serve/debug.env")
 dotenv.load_dotenv("supervisely/serve/secret_debug.env")
+dotenv.load_dotenv(os.path.expanduser("~/supervisely.env"))
 
 logger = sly.logger
 
-my_app: AppService = AppService()
-api = my_app.public_api
+my_app = sly.Application()
+my_server = my_app.get_server()
+api = sly.Api()
 
 team_id = int(os.environ["context.teamId"])
 workspace_id = int(os.environ["context.workspaceId"])
+app_data_dir = "/app/data"
+if not os.path.exists(app_data_dir):
+    os.makedirs(app_data_dir)
 
 model = None
 
-task_id = my_app.task_id
+task_id = sly.env.task_id()
 
 device = (
     os.environ["modal.state.device"]
@@ -48,13 +52,12 @@ if selected_weights_type == "pretrained":
 else:
     remote_weights_path = os.environ["modal.state.weightsPath"]
 
-local_dataset_path = os.path.join(my_app.data_dir, "sly_dataset")
+local_dataset_path = os.path.join(app_data_dir, "sly_dataset")
 local_weights_path = None
 
 batch_size = int(os.environ["modal.state.batchSize"])
 
-entry_point_path = Path(sys.argv[0])
-root_source_dir = str(entry_point_path.parents[3])
+root_source_dir = str(Path(__file__).parents[3])
 
 print(root_source_dir)
 

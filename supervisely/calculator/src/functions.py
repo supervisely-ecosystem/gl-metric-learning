@@ -4,6 +4,7 @@ import logging
 import os
 import pickle
 import tempfile
+import time
 import uuid
 
 import numpy as np
@@ -16,7 +17,7 @@ from csv import writer, reader
 
 def get_progress_cb(message, total, is_size=False):
     progress = sly.Progress(message, total, is_size=is_size)
-    progress_cb = partial(update_progress, api=g.api, task_id=g.my_app.task_id, progress=progress)
+    progress_cb = partial(update_progress, api=g.api, task_id=g.task_id, progress=progress)
     progress_cb(0)
     return progress_cb
 
@@ -51,9 +52,9 @@ def list_dirs(paths):
 
 def check_model_connection():
     try:
+        sly.logger.debug("Connecting to the model", extra={"session_id": g.session_id})
         response = g.api.task.send_request(g.session_id, "get_info", data={}, timeout=5)
-        response = json.loads(response)
-        g.model_info = ast.literal_eval(response)
+        g.model_info = response
         sly.logger.info("🟩 Model has been successfully connected")
         sly.logger.info(f"⚙️ Model info:\n"
                         f"{response}")
@@ -167,8 +168,19 @@ def process_placeholder_images(batch):
 def inference_batch(batch):
     embeddings_by_indexes, inference_items = process_placeholder_images(batch)
     logging.info('big req sent')
-    response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items}, timeout=99999)
-    embeddings_by_indexes.extend(ast.literal_eval(json.loads(response)))
+    if g.model_info.get("support_async_inference", False):
+        response = g.api.task.send_request(g.session_id, "inference_async", data={'input_data': inference_items}, timeout=5)
+        inference_uuid = response["inference_request_uuid"]
+        for _ in range(720): # 1 hour
+            response = g.api.task.send_request(g.session_id, "get_inference_status", data={'inference_request_uuid': inference_uuid}, timeout=5)
+            if response.get("status") == "done":
+                break
+            time.sleep(5)
+        response = g.api.task.send_request(g.session_id, "get_inference_result", data={'inference_request_uuid': inference_uuid}, timeout=60)
+    else:
+        response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items}, timeout=99999)
+    response = json.loads(response["data"])
+    embeddings_by_indexes.extend(ast.literal_eval(response))
 
     return embeddings_by_indexes
 
@@ -187,7 +199,7 @@ def dump_embeddings(dataset_id, packed_data):
                                    f'{dataset_uuid}.pkl'
                                    )
 
-    temp_file_name_path = f'{g.my_app.data_dir}/temp_file.pkl'
+    temp_file_name_path = f'{g.app_data_dir}/temp_file.pkl'
     if os.path.isfile(temp_file_name_path):
         os.remove(temp_file_name_path)
 

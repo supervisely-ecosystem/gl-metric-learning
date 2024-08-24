@@ -1,6 +1,7 @@
 {
   "name": "Serve Metric Learning",
   "type": "app",
+  "version": "2.0.0",
   "restart_policy": "on_error",
   "categories": [
     "neural network",
@@ -9,9 +10,9 @@
     "serve"
   ],
   "description": "Google landmarks challenge models",
-  "docker_image": "supervisely/gl-metric-learning:1.0.0",
-  "instance_version": "6.4.57",
-  "main_script": "supervisely/serve/src/main.py",
+  "docker_image": "supervisely/gl-metric-learning:1.0.1",
+  "instance_version": "6.11.10",
+  "entrypoint": "python -m uvicorn main:app --app-dir supervisely/serve/src --host 0.0.0.0 --port 8000 --ws websockets",
   "modal_template": "supervisely/serve/src/modal.html",
   "modal_width": 700,
   "modal_template_state": {

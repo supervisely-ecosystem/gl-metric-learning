@@ -3,23 +3,23 @@ import sys
 from pathlib import Path
 
 import supervisely as sly
-from supervisely.app.v1.app_service import AppService
 # import dotenv
 #
 # dotenv.load_dotenv('./debug.env')
 # dotenv.load_dotenv('./secret_debug.env')
 
 
-logger = sly.sly_logger
+logger = sly.logger
 
-my_app: AppService = AppService()
-api = my_app.public_api
+my_app = sly.Application()
+api = sly.Api()
+app_data_dir = "/app/data"
 
 
 session_id = os.environ["modal.state.sessionId"]
 
 
-task_id = my_app.task_id
+task_id = sly.env.task_id()
 team_id = int(os.environ["context.teamId"])
 workspace_id = int(os.environ["context.workspaceId"])
 project_id = int(os.environ["modal.state.slyProjectId"])
@@ -31,7 +31,7 @@ project_meta = sly.ProjectMeta.from_json(api.project.get_meta(project_id))
 
 remote_embeddings_dir = '/GL-MetricLearning/embeddings/'
 
-local_project_path = os.path.join(my_app.data_dir, 'project')
+local_project_path = os.path.join(app_data_dir, 'project')
 
 os.makedirs(local_project_path, exist_ok=True)
 sly.fs.clean_dir(local_project_path)
@@ -40,7 +40,7 @@ sly.fs.clean_dir(local_project_path)
 batch_size = 5
 model_info = None
 
-root_source_dir = str(Path(sys.argv[0]).parents[3])
+root_source_dir = str(Path(__file__).parents[3])
 
 sys.path.append(os.path.join(root_source_dir, 'src'))
 
