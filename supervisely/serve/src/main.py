@@ -72,6 +72,14 @@ def get_session_info():
     return get_info()
 
 
+g.my_server.post("/is_deployed")
+def is_deployed():
+    return {
+        "deployed": True,
+        "description:": "Model is ready to receive requests",
+    }
+
+
 def main():
     sly.logger.info("Script arguments", extra={
 
