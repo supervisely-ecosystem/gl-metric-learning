@@ -65,7 +65,6 @@ def inference(request: Request):
 
 @g.my_server.post("/inference_async")
 def inference_async(request: Request):
-    sly.logger.debug("Inference request", extra={'request': request})
     inference_request_uuid = uuid.uuid5(
         namespace=uuid.NAMESPACE_URL, name=f"{time.time()}"
     ).hex
