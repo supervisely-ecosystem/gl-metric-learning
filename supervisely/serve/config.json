@@ -1,6 +1,7 @@
 {
   "name": "Serve Metric Learning",
   "type": "app",
+  "version": "2.0.0",
   "restart_policy": "on_error",
   "categories": [
     "neural network",
