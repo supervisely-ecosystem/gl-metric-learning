@@ -86,9 +86,9 @@ def inference_async(request: Request):
 def get_inference_request_status(request: Request):
     request_uuid = request.state.state["inference_request_uuid"]
     if request_uuid in requests_statuses:
-        return requests_statuses[request_uuid]["status"]
+        return {"status":requests_statuses[request_uuid]["status"]}
     else:
-        return {"status": "not found", "data": None}
+        return {"status": "not found"}
 
 
 @g.my_server.post("/get_inference_result")
