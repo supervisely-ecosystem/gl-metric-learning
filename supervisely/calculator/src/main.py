@@ -6,9 +6,8 @@ import sly_globals as g
 import functions as f
 
 
-@g.my_app.callback("calculate_embeddings_for_project")
 @sly.timeit
-def calculate_embeddings_for_project(api: sly.Api, task_id, context, state, app_logger):
+def calculate_embeddings_for_project(api: sly.Api):
     datasets_list = g.api.dataset.get_list(g.project_id)
     images_count = f.get_images_count_in_project(project_id=g.project_id)
     progress = sly.Progress("processing images:", images_count)
@@ -46,8 +45,7 @@ def main():
     })
 
     f.check_model_connection()
-    g.my_app.run(initial_events=[{"command": "calculate_embeddings_for_project"}])
-
+    calculate_embeddings_for_project(g.api)
 
 if __name__ == "__main__":
     sly.main_wrapper("main", main)

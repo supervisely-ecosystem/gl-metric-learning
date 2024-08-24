@@ -16,7 +16,7 @@ from csv import writer, reader
 
 def get_progress_cb(message, total, is_size=False):
     progress = sly.Progress(message, total, is_size=is_size)
-    progress_cb = partial(update_progress, api=g.api, task_id=g.my_app.task_id, progress=progress)
+    progress_cb = partial(update_progress, api=g.api, task_id=g.task_id, progress=progress)
     progress_cb(0)
     return progress_cb
 
@@ -187,7 +187,7 @@ def dump_embeddings(dataset_id, packed_data):
                                    f'{dataset_uuid}.pkl'
                                    )
 
-    temp_file_name_path = f'{g.my_app.data_dir}/temp_file.pkl'
+    temp_file_name_path = f'{g.app_data_dir}/temp_file.pkl'
     if os.path.isfile(temp_file_name_path):
         os.remove(temp_file_name_path)
 
