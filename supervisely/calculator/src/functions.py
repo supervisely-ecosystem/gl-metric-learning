@@ -211,6 +211,32 @@ def dump_embeddings(dataset_id, packed_data):
     g.api.file.upload(g.team_id, temp_file_name_path, remote_pkl_path)
 
 
+def dump_embeddings_persistent(dataset_id, packed_data_batch):
+    dataset_uuid = get_uuid_by_string(str(dataset_id))
+
+    remote_pkl_path = os.path.join(g.remote_embeddings_dir, g.model_info['Model'],
+                                   f"{g.workspace_info.name}_{g.workspace_id}",
+                                   f"{g.project_info.name}_{g.project_id}",
+                                   dataset_uuid[0], dataset_uuid[1], dataset_uuid[2],
+                                   f'{dataset_uuid}.pkl'
+                                   )
+
+    temp_data = {}
+    temp_file_name_path = f'{g.my_app.data_dir}/temp_file.pkl'
+    if os.path.isfile(temp_file_name_path):
+        temp_data = json.load(open(temp_file_name_path, 'r'))
+        os.remove(temp_file_name_path)
+
+    temp_data.update(packed_data_batch)
+    with open(temp_file_name_path, 'wb') as tmp_file:
+        pickle.dump(temp_data, tmp_file)
+
+    if g.api.file.exists(g.team_id, remote_pkl_path):
+        g.api.file.remove(g.team_id, remote_pkl_path)
+
+    g.api.file.upload(g.team_id, temp_file_name_path, remote_pkl_path)
+
+
 def create_table(local_table_path):
     headers = ['dataset_id', 'dataset_name', 'filename', 'embeddings_count']
 
@@ -276,3 +302,7 @@ def get_images_count_in_project(project_id):
             images_count += dataset_info.images_count
 
     return images_count
+
+def write_packed_data_persistent(dataset_id, packed_data_batch):
+    dump_embeddings_persistent(dataset_id, packed_data_batch)
+    update_table(dataset_id, packed_data_batch)
