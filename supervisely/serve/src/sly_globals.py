@@ -11,6 +11,7 @@ import torch.cuda
 
 dotenv.load_dotenv("supervisely/serve/debug.env")
 dotenv.load_dotenv("supervisely/serve/secret_debug.env")
+dotenv.load_dotenv(os.path.expanduser("~/supervisely.env"))
 
 logger = sly.logger
 
@@ -54,8 +55,7 @@ local_weights_path = None
 
 batch_size = int(os.environ["modal.state.batchSize"])
 
-entry_point_path = Path(sys.argv[0])
-root_source_dir = str(entry_point_path.parents[3])
+root_source_dir = str(Path(__file__).parents[3])
 
 print(root_source_dir)
 
