@@ -63,8 +63,6 @@ def get_info():
             'Model': g.remote_weights_path.split('/')[-1]
         }
 
-    output_data = json.dumps(str(output_data))
-
     return output_data
 
 g.my_server.post("/get_session_info")
