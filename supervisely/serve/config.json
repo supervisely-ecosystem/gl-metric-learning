@@ -11,7 +11,7 @@
   "description": "Google landmarks challenge models",
   "docker_image": "supervisely/gl-metric-learning:1.0.1",
   "instance_version": "6.4.57",
-  "entrypoint": "PYTHONPATH=root python -m uvicorn supervisely.serve.src.main:app --host 0.0.0.0 --port 8000 --ws websockets",
+  "entrypoint": "PYTHONPATH=supervisely python -m uvicorn supervisely.serve.src.main:app --host 0.0.0.0 --port 8000 --ws websockets",
   "modal_template": "supervisely/serve/src/modal.html",
   "modal_width": 700,
   "modal_template_state": {
