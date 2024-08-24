@@ -20,6 +20,7 @@ api = sly.Api()
 
 team_id = int(os.environ["context.teamId"])
 workspace_id = int(os.environ["context.workspaceId"])
+app_data_dir = "/app/data"
 
 model = None
 
@@ -48,7 +49,7 @@ if selected_weights_type == "pretrained":
 else:
     remote_weights_path = os.environ["modal.state.weightsPath"]
 
-local_dataset_path = os.path.join(my_app.data_dir, "sly_dataset")
+local_dataset_path = os.path.join(app_data_dir, "sly_dataset")
 local_weights_path = None
 
 batch_size = int(os.environ["modal.state.batchSize"])
