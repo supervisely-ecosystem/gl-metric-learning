@@ -4,6 +4,7 @@ import logging
 import os
 import pickle
 import tempfile
+import time
 import uuid
 
 import numpy as np
@@ -168,7 +169,17 @@ def process_placeholder_images(batch):
 def inference_batch(batch):
     embeddings_by_indexes, inference_items = process_placeholder_images(batch)
     logging.info('big req sent')
-    response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items}, timeout=99999)
+    if g.model_info.get("support_async_inference", False):
+        response = g.api.task.send_request(g.session_id, "inference_async", data={'input_data': inference_items}, timeout=5)
+        inference_uuid = response.get["inference_request_uuid"]
+        for _ in range(720): # 1 hour
+            response = g.api.task.send_request(g.session_id, "get_inference_status", data={'inference_request_uuid': inference_uuid}, timeout=5)
+            if response.get("status") == "done":
+                break
+            time.sleep(5)
+        response = g.api.task.send_request(g.session_id, "get_inference_result", data={'inference_request_uuid': inference_uuid}, timeout=60)
+    else:
+        response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items}, timeout=99999)
     embeddings_by_indexes.extend(ast.literal_eval(json.loads(response)))
 
     return embeddings_by_indexes
