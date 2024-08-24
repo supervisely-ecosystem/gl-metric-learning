@@ -96,8 +96,8 @@ def get_inference_result(request: Request):
     request_uuid = request.state.state["inference_request_uuid"]
     if request_uuid in requests_statuses:
         if requests_statuses[request_uuid]["status"] == "done":
-            status = requests_statuses.pop(request_uuid)
-            return status["data"]
+            request = requests_statuses.pop(request_uuid)
+            return {"status": request["status"], "data": request["data"]}
         else:
             return {"status": "processing", "data": None}
     else:
