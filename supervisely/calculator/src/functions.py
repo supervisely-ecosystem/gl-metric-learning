@@ -223,7 +223,7 @@ def dump_embeddings_persistent(dataset_id, packed_data_batch):
                                    )
 
     temp_data = {}
-    temp_file_name_path = f'{g.my_app.data_dir}/temp_file.pkl'
+    temp_file_name_path = f'{g.app_data_dir}/temp_file.pkl'
     if os.path.isfile(temp_file_name_path):
         temp_data = json.load(open(temp_file_name_path, 'r'))
         os.remove(temp_file_name_path)
