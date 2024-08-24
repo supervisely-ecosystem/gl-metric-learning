@@ -67,6 +67,10 @@ def get_info():
 
     return output_data
 
+g.my_server.post("/get_session_info")
+def get_session_info():
+    return get_info()
+
 
 def main():
     sly.logger.info("Script arguments", extra={
