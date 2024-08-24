@@ -177,10 +177,9 @@ def inference_batch(batch):
                 break
             time.sleep(5)
         response = g.api.task.send_request(g.session_id, "get_inference_result", data={'inference_request_uuid': inference_uuid}, timeout=60)
-        response = response["data"]
     else:
         response = g.api.task.send_request(g.session_id, "inference", data={'input_data': inference_items}, timeout=99999)
-    response = json.loads(response)
+    response = json.loads(response["data"])
     embeddings_by_indexes.extend(ast.literal_eval(response))
 
     return embeddings_by_indexes

@@ -60,7 +60,7 @@ def inference(request: Request):
     state = request.state.state
     data_to_process = list(state['input_data'])
 
-    return _inference(data_to_process)
+    return {"data": _inference(data_to_process)}
 
 
 @g.my_server.post("/inference_async")
