@@ -24,7 +24,7 @@ def warn_on_exception(func):
     return wrapper
 
 
-@g.my_server.post("inference")
+@g.my_server.post("/inference")
 @warn_on_exception
 @sly.timeit
 def inference(request):
@@ -48,7 +48,7 @@ def inference(request):
     return output_data
 
 
-@g.my_server.post("get_info")
+@g.my_server.post("/get_info")
 @warn_on_exception
 @sly.timeit
 def get_info():
