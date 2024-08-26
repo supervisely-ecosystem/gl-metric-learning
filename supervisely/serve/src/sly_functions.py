@@ -45,7 +45,7 @@ def batch_inference(data):
     batches = [batch for batch in batches if batch.size > 0]
 
     embeddings = []
-    for current_batch in batches: #, desc='✨ calculating embeddings'):
+    for current_batch in batches:
         temp_embedding = inference_one_batch(current_batch)
         embeddings.extend(temp_embedding)
     return embeddings
