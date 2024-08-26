@@ -3,7 +3,6 @@ import urllib.request
 import cv2
 import requests
 import numpy as np
-from tqdm import tqdm
 from functools import lru_cache
 
 import model_functions
@@ -15,7 +14,7 @@ def download_file_by_url(url, local_path):
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
         with open(local_path, 'wb') as f:
-            for chunk in tqdm(r.iter_content(chunk_size=8192), desc='⏬ downloading model'):
+            for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
     return 0
 
@@ -46,7 +45,7 @@ def batch_inference(data):
     batches = [batch for batch in batches if batch.size > 0]
 
     embeddings = []
-    for current_batch in tqdm(batches, desc='✨ calculating embeddings'):
+    for current_batch in batches:
         temp_embedding = inference_one_batch(current_batch)
         embeddings.extend(temp_embedding)
     return embeddings
@@ -84,7 +83,7 @@ def cache_images(data):
      FOR EACH url in data
      download image to RAM by url
     """
-    for row in tqdm(data, desc='⏬ downloading images'):
+    for row in data:
         try:
             image_in_memory = url_to_image(row['url'])
             row['cached_image'] = image_in_memory
