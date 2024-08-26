@@ -142,11 +142,8 @@ def main():
     })
 
     model_functions.initialize_network()
-    sly.logger.info("Downloading model and config...")
     f.download_model_and_config()
-    sly.logger.info("Model downloaded, downloading weights...")
     model_functions.load_weights(g.local_weights_path)
-    sly.logger.info("Weights downloaded.")
 
     sly.logger.info("🟩 Model has been successfully deployed")
     sly.logger.debug("Script arguments", extra={
