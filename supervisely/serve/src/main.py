@@ -154,6 +154,8 @@ def main():
         "Local weights": g.local_weights_path,
         "device": g.device
     })
+    progress_dummy = sly.Progress("Application is started ...", 1, ext_logger=sly.logger)
+    progress_dummy.iter_done_report()
 
 
 main()
