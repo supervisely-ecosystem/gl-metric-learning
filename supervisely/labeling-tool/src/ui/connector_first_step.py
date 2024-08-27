@@ -35,7 +35,11 @@ def connect_to_model(api: sly.Api, task_id, context, state, app_logger):
         task_id = state['nnId']
 
         response = api.task.send_request(task_id, "get_info", data={}, timeout=3)
-        model_info = ast.literal_eval(json.loads(response))
+        print(response)
+        model_info = response
+
+        # old implementation
+        # model_info = ast.literal_eval(json.loads(response))
 
         keys_to_remove = ['weightsUrl', 'config']
         f.remove_keys_from_dict(keys_to_remove, model_info)
