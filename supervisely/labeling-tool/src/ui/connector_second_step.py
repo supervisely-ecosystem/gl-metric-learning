@@ -38,9 +38,14 @@ def connect_to_calculator(api: sly.Api, task_id, context, state, app_logger):
         task_id = state['calculatorId']
         response = api.task.send_request(task_id, "get_info", data={}, timeout=3)
         calculator_info = response
+        print(calculator_info)
+        print(type(calculator_info))
         if isinstance(calculator_info, str):
             calculator_info = ast.literal_eval(calculator_info)
-
+        
+        print(calculator_info)
+        print(type(calculator_info))
+        
         if calculator_info['Model'] != g.model_info['Model']:
             raise ValueError('Metric Learning model and AI Recommendations model must be the same!')
 
