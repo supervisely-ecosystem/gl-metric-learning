@@ -86,8 +86,18 @@ def calculate_nearest_labels(images_ids, annotations, figures_ids, top_n=5, padd
     response = g.api.task.send_request(g.nn_session_id, "inference", data={
         'input_data': data_for_nn
     }, timeout=99999)
-    embeddings_by_indexes = ast.literal_eval(json.loads(response))  # [{'index': 0, 'embedding': [...], ..}, ..]
-
+    
+    embeddings_by_indexes = response.get("data", [])
+    embeddings_by_indexes = embeddings_by_indexes.strip('"')
+    embeddings_by_indexes = embeddings_by_indexes.replace("'", '"')
+    embeddings_by_indexes = json.loads(embeddings_by_indexes)
+    
+    # Old implementation
+    # embeddings_by_indexes = ast.literal_eval(json.loads(response))  
+    
+    # Example of embeddings_by_indexes in correct format. Must be list of dicts.
+    # # [{'index': 0, 'embedding': [...], ..}, ..]
+    
     if len(embeddings_by_indexes) != len(data_for_nn):
         raise ValueError(f'Data error. Check that the label is selected correctly.')
 
@@ -339,8 +349,10 @@ def upload_data_to_tabs(nearest_labels, label_annotation, fields, state):
 
 
 def get_urls_by_label(selected_label):
-    label_info = g.items_database[selected_label]
-    return [{'preview': get_resized_image(current_url, g.items_preview_size)}
+    label_info = g.items_database.get(selected_label, None)
+    if label_info is None:
+        raise ValueError(f"Label '{selected_label}' not found in items database")
+    return [{'preview': get_resized_image(current_url, g.items_preview_size)} 
             for current_url in label_info['url']][:g.items_preview_count]
 
 
