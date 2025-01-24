@@ -15,11 +15,11 @@
   <a href="#About-Us">About Us</a>
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection)
-[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection)
+[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/gl-metric-learning)
-[![views](https://app.supervise.ly/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection.png)](https://supervise.ly)
-[![runs](https://app.supervise.ly/img/badges/runs/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection.png)](https://supervise.ly)
+[![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection.png)](https://supervisely.com)
+[![runs](https://app.supervisely.com/img/badges/runs/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection.png)](https://supervisely.com)
 
 
 <p float="left">
@@ -75,23 +75,23 @@ All you need to start is:
 
 ## Applications
 
-- [CSV Products Catalog To Images Project](https://ecosystem.supervise.ly/apps/import-csv-catalog) 
+- [CSV Products Catalog To Images Project](https://ecosystem.supervisely.com/apps/import-csv-catalog) 
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/import-csv-catalog" src="https://imgur.com/NxeAATL.png" width="350px"/> 
 
-- [Serve Metric Learning](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/gl-metric-learning/supervisely/serve)
+- [Serve Metric Learning](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/serve)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/serve" src="https://imgur.com/A3BW6hP.png" width="350px"/> 
 
-- [Embeddings Calculator](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/gl-metric-learning/supervisely/calculator)
+- [Embeddings Calculator](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/calculator)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/calculator" src="https://imgur.com/QL90cJS.png" width="350px"/>  
 
-- [AI Recommendations](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)
+- [AI Recommendations](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator" src="https://imgur.com/WptA30Z.png" width="350px"/> 
 
-- [Metric Learning Labeling Tool](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool)
+- [Metric Learning Labeling Tool](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool" src="https://imgur.com/8HQvAuT.png" width="350px"/>  
     
@@ -99,7 +99,7 @@ All you need to start is:
 ## Demo Data
 
 - [.CSV table to import example](https://github.com/supervisely-ecosystem/import-csv-catalog/releases/download/v0.0.1/test_snacks_catalog.csv) — the table that is used in the **first step** of [launch](#Launch) 
-- [Grocery store shelves](https://ecosystem.supervise.ly/projects/grocery-store-shelves) - labeled and untagged images for test
+- [Grocery store shelves](https://ecosystem.supervisely.com/projects/grocery-store-shelves) - labeled and untagged images for test
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/grocery-store-shelves" src="https://i.imgur.com/Mqqqs4c.png" width="350px"/>
 
@@ -111,12 +111,12 @@ You can use sources from from any application to create your own.
 You can also refer to our documentation:
 
 - [How to create Superivsely APP](https://github.com/supervisely-ecosystem/how-to-create-app)
-- [Learn SDK Basics with IPython Notebooks](https://sdk.docs.supervise.ly/rst_templates/notebooks/notebooks.html)
-- [Complete Python SDK](https://sdk.docs.supervise.ly/sdk_packages.html)
+- [Learn SDK Basics with IPython Notebooks](https://sdk.docs.supervisely.com/rst_templates/notebooks/notebooks.html)
+- [Complete Python SDK](https://sdk.docs.supervisely.com/sdk_packages.html)
 
 # About us
 
-You can think of [Supervisely](https://supervise.ly/) as an Operating System available via Web Browser to help you solve
+You can think of [Supervisely](https://supervisely.com/) as an Operating System available via Web Browser to help you solve
 Computer Vision tasks. The idea is to unify all the relevant tools that may be needed to make the development process as
 smooth and fast as possible.
 
@@ -138,6 +138,6 @@ GPU related computations will be performed on the connected machine(s).
 - for technical support please leave issues, questions or suggestions in
   our [repo](https://github.com/supervisely-ecosystem/gl-metric-learning). Our team will try to help.
 - also we can chat in slack
-  channel [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+  channel [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 - if you are interested in Supervisely Enterprise Edition (EE) please send us
-  a [request](https://supervise.ly/enterprise/?demo) or email Yuri Borisov at [sales@supervise.ly](sales@supervise.ly)
+  a [request](https://supervisely.com/enterprise/?demo) or email Yuri Borisov at [sales@supervisely.com](sales@supervisely.com)
