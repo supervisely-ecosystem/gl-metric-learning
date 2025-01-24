@@ -11,11 +11,11 @@
   <a href="#Results">Results</a>
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/gl-metric-learning/supervisely/calculator)
-[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/calculator)
+[![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/gl-metric-learning)
-[![views](https://app.supervise.ly/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/calculator.png)](https://supervise.ly)
-[![runs](https://app.supervise.ly/img/badges/runs/supervisely-ecosystem/gl-metric-learning/supervisely/calculator.png)](https://supervise.ly)
+[![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/calculator.png)](https://supervisely.com)
+[![runs](https://app.supervisely.com/img/badges/runs/supervisely-ecosystem/gl-metric-learning/supervisely/calculator.png)](https://supervisely.com)
 
 </div>
 
@@ -31,11 +31,11 @@ Application key points:
 
 # How to Run
 
-### 1. Add [Embeddings Calculator](https://ecosystem.supervise.ly/apps/gl-metric-learning/supervisely/calculator) to your team from Ecosystem  
+### 1. Add [Embeddings Calculator](https://ecosystem.supervisely.com/apps/gl-metric-learning/supervisely/calculator) to your team from Ecosystem  
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/calculator" src="https://i.imgur.com/8SY4Rxc.png" width="350px" style='padding-bottom: 20px'/>  
 
 ### 2. Run app from the context menu of **Images Project**:
-ℹ️ You can use [CSV To Images Project](https://ecosystem.supervise.ly/apps/import-csv-catalog) application to get Images Project in suitable format
+ℹ️ You can use [CSV To Images Project](https://ecosystem.supervisely.com/apps/import-csv-catalog) application to get Images Project in suitable format
 <img src="https://i.imgur.com/piXysyf.png" width="100%"/>
 
 ### 3. Select served session in modal window
