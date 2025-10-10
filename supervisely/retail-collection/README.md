@@ -15,7 +15,7 @@
   <a href="#About-Us">About Us</a>
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/gl-metric-learning)
 [![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/retail-collection.png)](https://supervisely.com)
@@ -79,19 +79,19 @@ All you need to start is:
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/import-csv-catalog" src="https://imgur.com/NxeAATL.png" width="350px"/> 
 
-- [Serve Metric Learning](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/serve)
+- [Serve Metric Learning](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/serve)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/serve" src="https://imgur.com/A3BW6hP.png" width="350px"/> 
 
-- [Embeddings Calculator](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/calculator)
+- [Embeddings Calculator](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/calculator)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/calculator" src="https://imgur.com/QL90cJS.png" width="350px"/>  
 
-- [AI Recommendations](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)
+- [AI Recommendations](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator" src="https://imgur.com/WptA30Z.png" width="350px"/> 
 
-- [Metric Learning Labeling Tool](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool)
+- [Metric Learning Labeling Tool](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool)
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool" src="https://imgur.com/8HQvAuT.png" width="350px"/>  
     
