@@ -18,7 +18,7 @@ collection of tools to work with metric learning models
   <a href="#Demo">Demo</a> 
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/trans-t/supervisely/serve)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../supervisely-ecosystem/trans-t/supervisely/serve)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/trans-t)
 [![views](https://app.supervisely.com/public/api/v3/ecosystem.counters?repo=supervisely-ecosystem/trans-t/supervisely/serve&counter=views&label=views)](https://supervisely.com)
