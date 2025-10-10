@@ -11,7 +11,7 @@
   <a href="#Demo-Video">Demo Video</a> 
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/gl-metric-learning)
 [![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool.png)](https://supervisely.com)
@@ -35,11 +35,11 @@ Application key points:
 
 ### 1. Launch Applications:
 
-- [Serve Metric Learning](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/serve)
-- [AI Recommendations](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)  
+- [Serve Metric Learning](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/serve)
+- [AI Recommendations](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)  
 
 
-### 2. Add [Metric Learning Labeling Tool](../../../../supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool) to your team from Ecosystem  
+### 2. Add [Metric Learning Labeling Tool](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool) to your team from Ecosystem  
 
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/labeling-tool" src="https://imgur.com/faHLnLM.png" width="350px" style='padding-bottom: 20px'/>  
 
