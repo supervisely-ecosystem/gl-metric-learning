@@ -12,7 +12,7 @@
   <a href="#Results">Results</a>
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervisely.com/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/gl-metric-learning)
 [![views](https://app.supervisely.com/img/badges/views/supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator.png)](https://supervisely.com)
@@ -27,16 +27,16 @@ It returns recommended items from reference database with their probabilities (c
 
 Application key points:
 - Return recommended item from reference database [using API](https://github.com/supervisely-ecosystem/gl-metric-learning/blob/main/supervisely/similarity-calculator/src/demo_api_requests.py)
-- Load previously calculated embeddings from [Embeddings Calculator](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/calculator) application to RAM
+- Load previously calculated embeddings from [Embeddings Calculator](https://ecosystem.supervisely.com/apps/gl-metric-learning/supervisely/calculator) application to RAM
 - Allows dynamically updates reference database in RAM
 
 # How to Run
 
-### 1. Add [AI Recommendations](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator) to your team from Ecosystem.
+### 1. Add [AI Recommendations](https://ecosystem.supervisely.com/apps/gl-metric-learning/supervisely/similarity-calculator) to your team from Ecosystem.
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/similarity-calculator" src="https://i.imgur.com/1QpAfy2.png" width="350px" style='padding-bottom: 20px'/>  
 
 ### 2. Run app from the context menu of **Images Project**:
-ℹ️ You can use [Embeddings Calculator](../../../../../../supervisely-ecosystem/gl-metric-learning/supervisely/calculator) application to get Images Project in suitable format
+ℹ️ You can use [Embeddings Calculator](https://ecosystem.supervisely.com/apps/supervisely-ecosystem/gl-metric-learning/supervisely/calculator) application to get Images Project in suitable format
 <img src="https://i.imgur.com/XHZ4OZq.png" width="100%"/>
 
 
