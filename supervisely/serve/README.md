@@ -31,7 +31,7 @@ Application key points:
 
 # How to Run
 
-### 1. Add [Serve Metric Learning](../../../../supervisely-ecosystem/supervisely-ecosystem%252Ffairmot%252Fsupervisely%252Fserve) to your team from Ecosystem
+### 1. Add [Serve Metric Learning](https://ecosystem.supervisely.com/apps/supervisely-ecosystem%252Ffairmot%252Fsupervisely%252Fserve) to your team from Ecosystem
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/serve" src="https://i.imgur.com/IQvX8TG.png" width="350px" style='padding-bottom: 10px'/>
 
 ### 2. Choose model, deploying device and press the **Run** button
