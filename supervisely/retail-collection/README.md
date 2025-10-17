@@ -75,7 +75,7 @@ All you need to start is:
 
 ## Applications
 
-- [CSV Products Catalog To Images Project](../../../../supervisely-ecosystem/import-csv-catalog) 
+- [CSV Products Catalog To Images Project](https://ecosystem.supervisely.com/apps/import-csv-catalog) 
 
     <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/import-csv-catalog" src="https://imgur.com/NxeAATL.png" width="350px"/> 
 
