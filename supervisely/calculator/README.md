@@ -35,7 +35,7 @@ Application key points:
 <img data-key="sly-module-link" data-module-slug="supervisely-ecosystem/gl-metric-learning/supervisely/calculator" src="https://i.imgur.com/8SY4Rxc.png" width="350px" style='padding-bottom: 20px'/>  
 
 ### 2. Run app from the context menu of **Images Project**:
-ℹ️ You can use [CSV To Images Project](../../../../supervisely-ecosystem/import-csv-catalog) application to get Images Project in suitable format
+ℹ️ You can use [CSV To Images Project](https://ecosystem.supervisely.com/apps/import-csv-catalog) application to get Images Project in suitable format
 <img src="https://i.imgur.com/piXysyf.png" width="100%"/>
 
 ### 3. Select served session in modal window
