@@ -10,7 +10,7 @@
   ],
   "description": "Calculate embeddings for images project",
   "docker_image": "supervisely/base-py-sdk:6.73.564",
-  "instance_version": "6.11.10",
+  "instance_version": "6.15.60",
   "main_script": "supervisely/calculator/src/main.py",
   "modal_template": "supervisely/calculator/src/modal.html",
   "modal_width": 700,

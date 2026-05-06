@@ -10,7 +10,7 @@
   ],
   "description": "Use metric learning models to classify images",
   "docker_image": "supervisely/labeling:6.73.564",
-  "instance_version": "6.4.57",
+  "instance_version": "6.15.60",
   "main_script": "supervisely/labeling-tool/src/main.py",
   "gui_template": "supervisely/labeling-tool/src/gui.html",
   "task_location": "application_sessions",
