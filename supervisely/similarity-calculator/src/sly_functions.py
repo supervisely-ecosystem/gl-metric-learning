@@ -13,7 +13,7 @@ import numpy as np
 from tqdm import tqdm
 from functools import lru_cache
 
-import supervisely_lib as sly
+import supervisely as sly
 
 import sly_globals as g
 import sly_progress
