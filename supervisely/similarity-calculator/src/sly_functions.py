@@ -3,7 +3,6 @@ import copy
 import torch
 
 import os
-import pickle
 import tempfile
 import time
 import urllib.request
@@ -17,6 +16,7 @@ import supervisely_lib as sly
 
 import sly_globals as g
 import sly_progress
+import safe_pickle
 
 
 def init_fields(state, data):
@@ -157,7 +157,13 @@ def load_embeddings_to_memory(pickles_files):
 
     for pickle_file_path in pickles_files:
         with open(pickle_file_path, 'rb') as pickle_file:
-            current_data = pickle.load(pickle_file)
+            try:
+                current_data = safe_pickle.load(pickle_file)
+            except Exception as ex:
+                # crafted or unexpected file: skip it, keep loading the others
+                g.logger.warning(f'Skipping embeddings file {pickle_file_path}: {ex}')
+                sly_progress_pickles.next_step()
+                continue
 
             for current_label, current_embeddings_data in current_data.items():
                 for current_embedding_data in current_embeddings_data:

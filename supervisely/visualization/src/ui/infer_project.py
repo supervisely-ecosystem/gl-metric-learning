@@ -8,7 +8,7 @@ from sly_visualization_progress import init_progress
 from model_functions import initialize_network, load_weights, calculate_embeddings_for_nps_batch
 from supervisely.calculator import main
 from pathlib import Path
-import pickle
+import safe_pickle
 
 from urllib.parse import urlparse
 
@@ -103,7 +103,7 @@ def infer_project_(state, context):
                 local_path = os.path.join(g.embeddings_dir, Path(element).name)
                 try:
                     with open(local_path, 'rb') as pkl_file:
-                        file_content = pickle.load(pkl_file)
+                        file_content = safe_pickle.load(pkl_file)
 
                     for k, v in file_content.items():
                         precalculated_embedding_data[k] = v
@@ -116,7 +116,7 @@ def infer_project_(state, context):
             local_path = os.path.join(g.embeddings_dir, Path(embedding_file).name)
             try:
                 with open(local_path, 'rb') as pkl_file:
-                    file_content = pickle.load(pkl_file)
+                    file_content = safe_pickle.load(pkl_file)
 
                 for k, v in file_content.items():
                     precalculated_embedding_data[k] = v
